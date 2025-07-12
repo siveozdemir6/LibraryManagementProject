@@ -1,0 +1,61 @@
+﻿@model List<AuthorBookViewModel>
+
+@{
+    ViewData["Title"] = "Yazarın Kitapları";
+}
+
+<h2 class="text-center mt-4 mb-3">📚 @ViewBag.AuthorName adlı yazarın kitapları</h2>
+
+@if (!Model.Any())
+{
+    <div class="alert alert-warning text-center">
+        Bu yazara ait kitap bulunmamaktadır.
+    </div>
+}
+else
+{
+    <div class="container mt-3">
+        <table class="table table-custom shadow-sm rounded">
+            <thead>
+                <tr>
+                    <th>Başlık</th>
+                    <th>Yayın Tarihi</th>
+                    <th>Durum</th>
+                    <th class="text-center">İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.Title</td>
+                        <td>@book.PublishDate.ToString("dd.MM.yyyy")</td>
+                        <td>
+                            <span class="fw-semibold @(book.IsAvailable ? "text-success" : "text-danger")">
+                                @(book.IsAvailable ? "Mevcut" : "Mevcut Değil")
+                            </span>
+                        </td>
+                        <td class="text-center">
+                            <a asp-controller="Book"
+                               asp-action="Details"
+                               asp-route-id="@book.Id"
+                               asp-route-returnToAuthorId="@ViewBag.AuthorId"
+                               class="btn btn-back btn-sm">
+                                📖 Detay
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+
+<div class="text-center mt-4">
+    <a class="btn btn-back" asp-action="Details" asp-route-id="@ViewBag.AuthorId">
+        ← Yazara Geri Dön
+    </a>
+</div>
+
+
+

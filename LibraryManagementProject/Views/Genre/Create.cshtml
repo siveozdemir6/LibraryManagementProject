@@ -1,0 +1,38 @@
+﻿@model GenreCreateViewModel
+
+@{
+    ViewData["Title"] = "Yeni Tür Ekle";
+    var formAction = ViewContext.RouteData.Values["action"]?.ToString();
+}
+
+<h2 class="text-center mb-4 fw-bold">🏷️ Yeni Tür Ekle</h2>
+
+<div class="container shadow-sm p-4 rounded bg-white mt-4 card">
+    <form asp-action="@formAction" method="post" class="row g-4">
+
+        <div class="col-md-6">
+            <label asp-for="GenreName" class="form-label fw-semibold">Tür Adı</label>
+            <input asp-for="GenreName" class="form-control" />
+            <span asp-validation-for="GenreName" class="text-danger small"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="LibrarySection" class="form-label fw-semibold">Kütüphane Bölümü</label>
+            <input asp-for="LibrarySection" class="form-control" />
+            <span asp-validation-for="LibrarySection" class="text-danger small"></span>
+        </div>
+
+        <div class="col-md-12 text-end mt-3">
+            <button type="submit" class="btn btn-custom me-2">✔️ Kaydet</button>
+            <a asp-action="List" class="btn btn-back">🔙 Geri Dön</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+
+
+

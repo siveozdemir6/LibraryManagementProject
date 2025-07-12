@@ -1,0 +1,45 @@
+﻿@model BookDetailsViewModel
+
+@{
+    ViewData["Title"] = "Kitap Detayları";
+}
+
+<h2 class="text-center mt-4 mb-5 fw-bold">📖 Kitap Detayları</h2>
+
+<div class="d-flex justify-content-center align-items-start">
+    <div class="card-custom" style="max-width: 700px;">
+        <h4 class="mb-3 fw-semibold">@Model.Title</h4>
+        <hr class="text-muted" />
+        <p><strong>Yazar:</strong> @Model.AuthorFullName</p>
+        <p><strong>Tür:</strong> @Model.GenreName</p>
+        <p><strong>Yayın Tarihi:</strong> @Model.PublishDate.ToString("dd.MM.yyyy")</p>
+        <p><strong>ISBN:</strong> @Model.ISBN</p>
+        <p><strong>Sayfa Sayısı:</strong> @Model.PageCount</p>
+        <p>
+            <strong>Açıklama:</strong>
+            @(string.IsNullOrWhiteSpace(Model.Description) ? "Açıklama girilmemiş." : Model.Description)
+        </p>
+        <p><strong>Mevcut Kopya:</strong> @Model.CopiesAvailable</p>
+        <p>
+            <strong>Durum:</strong>
+            <span class="@(Model.IsAvailable ? "text-available" : "text-unavailable")">
+                @(Model.IsAvailable ? "Mevcut" : "Mevcut Değil")
+            </span>
+        </p>
+        <p><strong>Kütüphane Bölümü:</strong> @Model.LibrarySection</p>
+
+        @if (ViewBag.ReturnToAuthorId != null)
+        {
+            <a class="btn btn-secondary-custom mt-3"
+               asp-controller="Author"
+               asp-action="Details"
+               asp-route-id="@ViewBag.ReturnToAuthorId">
+                ← Yazara Dön
+            </a>
+        }
+        else
+        {
+            <a class="btn btn-back mt-3" asp-controller="Book" asp-action="List">← Kitap Listesine Dön</a>
+        }
+    </div>
+</div>

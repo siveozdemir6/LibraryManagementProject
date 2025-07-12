@@ -1,0 +1,50 @@
+﻿@model AuthorEditViewModel
+
+@{
+    ViewData["Title"] = "Yazarı Düzenle";
+}
+
+<h2 class="text-center mt-4 mb-4">✏️ Yazar Düzenle</h2>
+
+<div class="d-flex justify-content-center align-items-start">
+    <div class="card-custom" style="max-width: 700px;">
+        <form asp-action="Edit" method="post" class="row g-4">
+            <input type="hidden" asp-for="Id" />
+
+            <div class="col-md-6">
+                <label asp-for="FirstName" class="form-label">Ad</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="LastName" class="form-label">Soyad</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="DateOfBirth" class="form-label">Doğum Tarihi</label>
+                <input asp-for="DateOfBirth" type="date" class="form-control" />
+                <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-12">
+                <label asp-for="Biography" class="form-label">Biyografi</label>
+                <textarea asp-for="Biography" class="form-control" rows="4"></textarea>
+                <span asp-validation-for="Biography" class="text-danger small"></span>
+            </div>
+
+            <div class="col-md-12 d-flex justify-content-between align-items-center mt-4">
+                <button type="submit" class="btn btn-custom">✔️ Güncelle</button>
+                <a asp-action="List" class="btn btn-back">🔙 Geri Dön</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

@@ -1,0 +1,127 @@
+﻿@model AdminPanelViewModel
+@{
+    ViewData["Title"] = "Admin Panel";
+}
+
+<div class="container mt-5">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-dark">Hoşgeldiniz @Model.Username!</h2>
+        <p class="text-muted">Başarıyla giriş yaptınız. Aşağıdan yönetim işlemlerini gerçekleştirebilirsiniz.</p>
+    </div>
+
+    <!-- Statistics Cards -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <div class="card card-books shadow-sm rounded-3 text-center">
+                <div class="card-body">
+                    <h6 class="card-title">📚 Toplam Kitap</h6>
+                    <p class="card-text fs-5 fw-semibold">@Model.TotalBooks</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-authors shadow-sm rounded-3 text-center">
+                <div class="card-body">
+                    <h6 class="card-title">👤 Toplam Yazar</h6>
+                    <p class="card-text fs-5 fw-semibold">@Model.TotalAuthors</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-genres shadow-sm rounded-3 text-center">
+                <div class="card-body">
+                    <h6 class="card-title">🏷️ Toplam Tür</h6>
+                    <p class="card-text fs-5 fw-semibold">@Model.TotalGenres</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Management Cards -->
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="admin-card h-100 shadow-sm rounded-3">
+                <div class="card-body text-center">
+                    <a asp-controller="Book" asp-action="Create" class="btn btn-books w-100 fs-5 py-3">
+                        ➕ Yeni Kitap Ekle
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="admin-card h-100 shadow-sm rounded-3">
+                <div class="card-body text-center">
+                    <a asp-controller="Author" asp-action="Create" class="btn btn-authors w-100 fs-5 py-3">
+                        ✍️ Yeni Yazar Ekle
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="admin-card h-100 shadow-sm rounded-3">
+                <div class="card-body text-center">
+                    <a asp-controller="Genre" asp-action="Create" class="btn btn-genres w-100 fs-5 py-3">
+                        🏷️ Yeni Tür Ekle
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="admin-card h-100 shadow-sm rounded-3">
+                <div class="card-body text-center">
+                    <a asp-controller="Book" asp-action="List" class="btn btn-list w-100 fs-5 py-3">
+                        📚 Kitap Listesini Gör
+                    </a>
+                    <p class="text-muted mt-3 small">Kitap düzenleme ve silme işlemlerini buradan yapabilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="admin-card h-100 shadow-sm rounded-3">
+                <div class="card-body text-center">
+                    <a asp-controller="Author" asp-action="List" class="btn btn-secondary-custom w-100 fs-5 py-3">
+                        👤 Yazar Listesini Gör
+                    </a>
+                    <p class="text-muted mt-3 small">Yazar düzenleme ve silme işlemlerini buradan yapabilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="admin-card h-100 shadow-sm rounded-3">
+                <div class="card-body text-center">
+                    <a asp-controller="Genre" asp-action="List" class="btn btn-info-custom w-100 fs-5 py-3">
+                        📁 Türleri Gör
+                    </a>
+                    <p class="text-muted mt-3 small">Tür düzenleme ve silme işlemlerini buradan yapabilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="admin-card h-100 shadow-sm rounded-3">
+                <div class="card-body text-center">
+                    <a asp-controller="Borrow" asp-action="List" class="btn btn-info-custom w-100 fs-5 py-3">
+                        🏷️ Ödünç Alınmış Kitap Kayıtlarını Gör
+                    </a>
+                    <p class="text-muted mt-3 small">Ödünç alınmış kitapların geri alma işlemlerini de buradan yapabilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="admin-card h-100 shadow-sm rounded-3">
+                <div class="card-body text-center">
+                    <a asp-controller="Borrow" asp-action="Create" class="btn btn-info-custom w-100 fs-5 py-3">
+                        📖 Kitap Ödünç Ver
+                    </a>
+                    <p class="text-muted mt-3 small">Okurlarımıza kitap ödünç verme işlemlerinin detaylarını buradan yapabilirsiniz.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

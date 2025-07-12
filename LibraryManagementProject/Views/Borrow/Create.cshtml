@@ -1,0 +1,45 @@
+﻿@model BorrowCreateViewModel
+
+@{
+    ViewData["Title"] = "📚 Kitap Ödünç Verme";
+}
+
+<h2 class="text-center mt-4 mb-4 fw-bold">📚 Kitap Ödünç Verme Sistemi</h2>
+
+<partial name="_TempMessagesPartial" />
+
+<div class="container shadow-sm p-4 rounded card">
+    <form asp-action="Create" method="post" class="row g-4">
+
+        <div class="col-md-6">
+            <label asp-for="SelectedBookId" class="form-label">📖 Kitap Seçin</label>
+            <select asp-for="SelectedBookId" class="form-select" asp-items="Model.AvailableBooks">
+                <option value="">-- Lütfen bir kitap seçiniz --</option>
+            </select>
+            <span asp-validation-for="SelectedBookId" class="text-danger small"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="BorrowerName" class="form-label">👤 Okur Adı</label>
+            <input asp-for="BorrowerName" class="form-control" />
+            <span asp-validation-for="BorrowerName" class="text-danger small"></span>
+        </div>
+
+        <div class="col-md-6">
+            <label asp-for="BorrowerPhone" class="form-label">📞 Okurun İletişim Numarası</label>
+            <input asp-for="BorrowerPhone" class="form-control" />
+            <span asp-validation-for="BorrowerPhone" class="text-danger small"></span>
+        </div>
+
+        <div class="col-12 text-end mt-3">
+            <button type="submit" class="btn btn-info-custom me-2">📥 Kitap Ödünç Ver</button>
+            <a asp-action="List" class="btn btn-back">🔙 Listeye Dön</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+}

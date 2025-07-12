@@ -1,0 +1,56 @@
+﻿@model List<GenreListViewModel>
+
+@{
+    ViewData["Title"] = "Tür Listesi";
+}
+
+<partial name="_TempMessagesPartial" />
+
+<h2 class="text-center mt-4 mb-4 fw-bold">🏷️ Türler</h2>
+
+<div class="container mt-3">
+    @if (Model.Any())
+    {
+        <table class="table table-bordered table-hover table-custom shadow-sm">
+            <thead>
+                <tr>
+                    <th>Tür Adı</th>
+                    <th>Bölüm</th>
+                    <th class="text-center">İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var genre in Model)
+                {
+                    <tr>
+                        <td>@genre.GenreName</td>
+                        <td>@genre.LibrarySection</td>
+                        <td class="text-center">
+                            <a asp-controller="Genre"
+                               asp-action="Edit"
+                               asp-route-id="@genre.Id"
+                               class="btn btn-sm btn-outline-info me-2">
+                                ✏️ Düzenle
+                            </a>
+                            <a asp-controller="Genre"
+                               asp-action="Delete"
+                               asp-route-id="@genre.Id"
+                               class="btn btn-outline-danger"
+                               onclick="return confirm('Bu türü silmek istediğinizden emin misiniz?');">
+                                🗑️ Sil
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <div class="alert alert-warning text-center">
+            Hiç tür bulunamadı.
+        </div>
+    }
+</div>
+
+

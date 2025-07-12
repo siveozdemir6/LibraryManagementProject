@@ -1,0 +1,47 @@
+﻿@model List<BorrowListViewModel>
+
+@{
+    ViewData["Title"] = "Ödünç Alınan Kitaplar";
+}
+
+<h2 class="text-center mt-4 mb-4 fw-bold">📚 Ödünç Alınmış Kitaplar Listesi</h2>
+
+<partial name="_TempMessagesPartial" />
+
+@if (Model.Any())
+{
+    <div class="table-responsive">
+        <table class="table table-bordered table-custom shadow-sm rounded">
+            <thead>
+                <tr>
+                    <th>📖 Kitap Adı</th>
+                    <th>👤 Okur Adı Soyadı</th>
+                    <th>📞 İletişim Numarası</th>
+                    <th>📅 Alınma Tarihi</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var record in Model)
+                {
+                    <tr>
+                        <td>@record.BookTitle</td>
+                        <td>@record.BorrowerName</td>
+                        <td>@record.BorrowerPhone</td>
+                        <td>@record.BorrowedDate.ToString("dd.MM.yyyy HH:mm")</td>
+                        <td>
+                            <a asp-action="Return" asp-route-id="@record.Id" class="btn btn-sm btn-info-custom">
+                                📤 Kütüphaneye Geri Al
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+}
+else
+{
+    <div class="alert alert-info text-center">📭 Şu anda hiç ödünç alınmış kitap yok.</div>
+}
+

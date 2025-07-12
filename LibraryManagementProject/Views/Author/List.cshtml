@@ -1,0 +1,66 @@
+﻿@model List<AuthorListViewModel>
+
+@{
+    ViewData["Title"] = "Yazar Listesi";
+    var isLoggedIn = Context.Session.GetString("Username") != null;
+}
+
+<partial name="_TempMessagesPartial" />
+
+<h2 class="text-center mt-4 mb-3">📚 Yazarlarımız</h2>
+
+<div class="container mt-3">
+    @if (!Model.Any())
+    {
+        <p class="text-muted text-center">Kayıtlı yazar bulunamadı.</p>
+    }
+    else
+    {
+        <table class="table table-custom shadow-sm rounded">
+            <thead>
+                <tr>
+                    <th>Ad Soyad</th>
+                    <th>Doğum Tarihi</th>
+                    <th class="text-center">İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var author in Model)
+                {
+                    <tr>
+                        <td>@author.FullName</td>
+                        <td>@author.DateOfBirth.ToString("dd.MM.yyyy")</td>
+                        <td class="text-center">
+                            <a asp-controller="Author"
+                               asp-action="Details"
+                               asp-route-id="@author.Id"
+                               class="btn btn-sm btn-details me-1">
+                                📖 Detay
+                            </a>
+
+                            @if (isLoggedIn)
+                            {
+                                <a asp-controller="Author"
+                                   asp-action="Edit"
+                                   asp-route-id="@author.Id"
+                                   class="btn btn-sm btn-outline-info me-1">
+                                    ✏️ Düzenle
+                                </a>
+
+                                <a asp-controller="Author"
+                                   asp-action="Delete"
+                                   asp-route-id="@author.Id"
+                                   class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('Bu yazarı silmek istediğinize emin misiniz?');">
+                                    🗑️ Sil
+                                </a>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+

@@ -1,0 +1,56 @@
+﻿@model List<BookListByGenreViewModel>
+
+@{
+    ViewData["Title"] = "Kitapları Listele";
+}
+
+<h2 class="text-center mt-4 mb-2 fw-bold">📚 @ViewBag.SelectedGenre Türündeki Kitaplar</h2>
+
+@if (ViewBag.LibrarySection != null)
+{
+    <p class="text-center text-muted mb-4">
+        📍 Bu tür kütüphanede şu bölümde yer alır:
+        <strong>@ViewBag.LibrarySection</strong>
+    </p>
+}
+
+<div class="container mt-3">
+    @if (!Model.Any())
+    {
+        <div class="alert alert-warning text-center">
+            Bu türe ait kitap bulunmamaktadır.
+        </div>
+    }
+    else
+    {
+        <table class="table table-bordered table-custom shadow-sm">
+            <thead>
+                <tr>
+                    <th>Başlık</th>
+                    <th>Yazar</th>
+                    <th>Yayın Tarihi</th>
+                    <th class="text-center">İşlem</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.Title</td>
+                        <td>@book.AuthorFullName</td>
+                        <td>@book.PublishDate.ToString("dd.MM.yyyy")</td>
+                        <td class="text-center">
+                            <a class="btn btn-sm btn-custom"
+                               asp-controller="Book"
+                               asp-action="Details"
+                               asp-route-id="@book.Id">
+                                📖 Detay
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+

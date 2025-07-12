@@ -1,0 +1,90 @@
+﻿@model List<BookListViewModel>
+
+@{
+    ViewData["Title"] = "Kitap Listesi";
+    var isLoggedIn = Context.Session.GetString("Username") != null;
+}
+
+<partial name="_TempMessagesPartial" />
+
+<h2 class="text-center mt-4 mb-3 fw-bold">📚 Kütüphanemizdeki Kitaplar</h2>
+
+<div class="container mt-3">
+    @if (!Model.Any())
+    {
+        <p class="text-muted text-center">Kütüphanede kayıtlı kitap bulunmamaktadır.</p>
+    }
+    else
+    {
+        <table class="table table-bordered table-custom shadow-sm">
+            <thead>
+                <tr>
+                    <th>Başlık</th>
+                    <th>Yazar</th>
+                    <th>Tür</th>
+                    <th>Yayın Tarihi</th>
+                    <th>Mevcut Kopya</th>
+                    <th>Durum</th>
+                    <th>Kütüphane Bölümü</th>
+                    <th>Detay</th>
+                    @if (isLoggedIn)
+                    {
+                        <th>Düzenle</th>
+                        <th>Sil</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var book in Model)
+                {
+                    <tr>
+                        <td>@book.Title</td>
+                        <td>@book.AuthorFullName</td>
+                        <td>@book.GenreName</td>
+                        <td>@book.PublishDate.ToString("dd.MM.yyyy")</td>
+                        <td>@book.CopiesAvailable</td>
+                        <td>
+                            <span class="fw-semibold @(book.IsAvailable ? "text-available" : "text-unavailable")">
+                                @(book.IsAvailable ? "Mevcut" : "Mevcut Değil")
+                            </span>
+                        </td>
+                        <td>@book.LibrarySection</td>
+                        <td>
+                            <a class="btn btn-sm btn-details"
+                               asp-controller="Book"
+                               asp-action="Details"
+                               asp-route-id="@book.Id">
+                                Detayları Gör
+                            </a>
+                        </td>
+                        @if (isLoggedIn)
+                        {
+                            <td>
+                                <a class="btn btn-sm btn-outline-info"
+                                   asp-controller="Book"
+                                   asp-action="Edit"
+                                   asp-route-id="@book.Id">
+                                    Düzenle
+                                </a>
+                            </td>
+                            <td>
+                                <a asp-controller="Book"
+                                   asp-action="Delete"
+                                   asp-route-id="@book.Id"
+                                   class="btn btn-sm btn-outline-danger"
+                                   onclick="return confirm('Bu kitabı silmek istediğinize emin misiniz?');">
+                                    Sil
+                                </a>
+                            </td>
+                        }
+
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+
+
+

@@ -1,0 +1,40 @@
+﻿@using LibraryManagementProject.ViewModels.Map
+@model LibraryMapViewModel
+
+@{
+    ViewData["Title"] = "Kütüphane Haritası";
+
+    var firstFloor = Model.Genres
+        .Where(g => g.LibrarySection.StartsWith("1. Kat"))
+        .OrderBy(g => g.LibrarySection)
+        .ToList();
+
+    var secondFloor = Model.Genres
+        .Where(g => g.LibrarySection.StartsWith("2. Kat"))
+        .OrderBy(g => g.LibrarySection)
+        .ToList();
+}
+
+<h2 class="text-center mt-4 mb-5 fw-bold text-dark">🗺️ Kütüphane Raf Haritası</h2>
+
+<h4 class="text-center mb-3 text-muted">🏰 1. Kat</h4>
+<div class="floor-grid mb-5">
+    @foreach (var genre in firstFloor)
+    {
+        <div class="shelf-card" data-info="@genre.LibrarySection">
+            <strong>@genre.GenreName</strong><br />
+            <small>@genre.LibrarySection</small>
+        </div>
+    }
+</div>
+
+<h4 class="text-center mb-3 text-muted">🌀 2. Kat</h4>
+<div class="floor-grid mb-5">
+    @foreach (var genre in secondFloor)
+    {
+        <div class="shelf-card" data-info="@genre.LibrarySection">
+            <strong>@genre.GenreName</strong><br />
+            <small>@genre.LibrarySection</small>
+        </div>
+    }
+</div>

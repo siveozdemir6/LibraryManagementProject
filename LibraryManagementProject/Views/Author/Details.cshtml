@@ -1,0 +1,28 @@
+﻿@model AuthorDetailsViewModel
+@{
+    ViewData["Title"] = "Yazar Detayları";
+}
+
+<h2 class="text-center mt-4 mb-4">👤 Yazar Detayları</h2>
+
+<div class="d-flex justify-content-center align-items-start">
+    <div class="card-custom p-4" style="max-width: 600px;">
+        <h4 class="mb-3" style="font-weight: 600;">@Model.FullName</h4>
+        <hr class="text-muted" />
+        <p><strong>Doğum Tarihi:</strong> @Model.DateOfBirth.ToString("dd.MM.yyyy")</p>
+        <p><strong>Biyografi:</strong> @(string.IsNullOrWhiteSpace(Model.Biography) ? "Biyografi girilmemiş." : Model.Biography)</p>
+
+        <div class="mt-4">
+            <a class="btn btn-back" asp-controller="Author" asp-action="List">← Tüm Yazarlara Dön</a>
+            <a class="btn btn-info-custom ms-2"
+               asp-controller="Author"
+               asp-action="BooksByAuthor"
+               asp-route-id="@Model.Id">
+                📚 Kitaplarını Görüntüle
+            </a>
+        </div>
+    </div>
+</div>
+
+
+

@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "Kütüphane Anasayfa";
+}
+
+<div class="container py-5">
+    <div class="row g-4">
+        <div class="col-md-6 col-lg-4">
+            <div class="card card-custom h-100">
+                <h5 class="card-title">📚 Kütüphanemizdeki Kitaplar</h5>
+                <p class="card-text">Kitap seçkimize göz atmak ister misiniz?</p>
+                <a asp-controller="Book" asp-action="List" class="btn btn-custom mt-3">Kitaplara Göz At</a>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card card-custom h-100">
+                <h5 class="card-title">🖋️ Yazarlar</h5>
+                <p class="card-text">Kütüphanemizde kitapları bulunan yazarlar hakkında bilgi edinin.</p>
+                <a asp-controller="Author" asp-action="List" class="btn btn-custom mt-3">Yazarları Gör</a>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card card-custom h-100">
+                <h5 class="card-title">🔒 Kütüphane Görevlisi İşlemleri</h5>
+                <p class="card-text">Bu bölüm sadece yetkili görevliler için ayrılmıştır.</p>
+                <a asp-controller="LoginUser" asp-action="Login" class="btn btn-custom mt-3">Yetkili Girişi</a>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card card-custom h-100">
+                <h5 class="card-title">🗺️ Kütüphane Haritası</h5>
+                <p class="card-text">Kütüphane yerleşim düzenini buradan görebilirsiniz.</p>
+                <a asp-controller="Map" asp-action="LibraryMap" class="btn btn-custom mt-3">Haritaya Git</a>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card card-custom h-100">
+                <h5 class="card-title">📞 Yardım</h5>
+                <p class="card-text">Bir sorunla mı karşılaştınız? Görevlimiz size yardımcı olsun.</p>
+                <button class="btn btn-custom mt-3" onclick="alert('Bir görevlimiz en kısa sürede sizinle ilgilenecek.')">Görevliyle Görüş</button>
+            </div>
+        </div>
+
+        <div class="col-md-6 col-lg-4">
+            <div class="card card-custom h-100">
+                <h5 class="card-title">🎭 Kütüphanemiz Hakkında</h5>
+                <p class="card-text">Biz Kimiz?</p>
+                <a asp-controller="Home" asp-action="About" class="btn btn-custom mt-3">Hakkında Sayfasına Git</a>
+            </div>
+        </div>
+    </div>
+</div>

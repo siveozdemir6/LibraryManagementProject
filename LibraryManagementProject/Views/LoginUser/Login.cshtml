@@ -1,0 +1,42 @@
+﻿@model LoginFormViewModel
+
+@{
+    ViewData["Title"] = "Giriş Yap";
+}
+
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card login-card p-4 shadow-lg" style="max-width: 450px; width: 100%;">
+        <h2 class="text-center mb-4 text-dark fw-bold">🔐 Kütüphane Girişi</h2>
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger text-center">@TempData["ErrorMessage"]</div>
+        }
+
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger text-center">@ViewBag.ErrorMessage</div>
+        }
+
+        <form asp-controller="LoginUser" asp-action="Login" method="post">
+            <div class="mb-3">
+                <label asp-for="Username" class="form-label">📛 Kullanıcı Adı</label>
+                <input asp-for="Username" class="form-control" placeholder="Yetkili adınızı girin..." />
+                <span asp-validation-for="Username" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">🔑 Şifre</label>
+                <input asp-for="Password" type="password" class="form-control" placeholder="••••••••" />
+                <span asp-validation-for="Password" class="text-danger small"></span>
+            </div>
+
+            <button type="submit" class="btn btn-login-theme w-100 mt-3">✨ Giriş Yap</button>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
