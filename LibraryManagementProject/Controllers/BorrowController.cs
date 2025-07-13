@@ -33,14 +33,11 @@ namespace LibraryManagementProject.Controllers
         [HttpPost]
         public IActionResult Create(BorrowCreateViewModel viewModel)
         {
-            var book = BookRepository.Books.FirstOrDefault(b => b.Id == viewModel.SelectedBookId && !b.IsDeleted); // Find the selected book by ID and ensure it is not deleted
 
-            // Check if the book exists and is available for borrowing
-            if (book == null || !book.IsAvailable) 
+            //check if the model state is valid
+
+            if (!ModelState.IsValid)
             {
-                TempData["ErrorMessage"] = "Bu kitap şu anda ödünç vermek için uygun değil.";
-
-                // Repopulate the available books in the view model
                 viewModel.AvailableBooks = BookRepository.Books
                     .Where(b => !b.IsDeleted && b.IsAvailable)
                     .Select(b => new SelectListItem
@@ -53,26 +50,42 @@ namespace LibraryManagementProject.Controllers
                 return View(viewModel);
             }
 
-            var newRecord = new BorrowRecord // Create a new borrow record with the provided details
-            {
-                Id = BorrowRecordRepository.BorrowRecords.Any() ?
-                     BorrowRecordRepository.BorrowRecords.Max(r => r.Id) + 1 : 1, // // Generate a new ID for the borrow record
+            // Check if the selected book exists and is available
+            var book = BookRepository.Books.FirstOrDefault(b => b.Id == viewModel.SelectedBookId && !b.IsDeleted);
 
+            if (book == null || !book.IsAvailable)
+            {
+                TempData["ErrorMessage"] = "Bu kitap şu anda ödünç vermek için uygun değil.";
+
+                viewModel.AvailableBooks = BookRepository.Books
+                    .Where(b => !b.IsDeleted && b.IsAvailable)
+                    .Select(b => new SelectListItem
+                    {
+                        Value = b.Id.ToString(),
+                        Text = b.Title
+                    })
+                    .ToList();
+
+                return View(viewModel);
+            }
+            // Create a new borrow record
+            var newRecord = new BorrowRecord
+            {
+                Id = BorrowRecordRepository.BorrowRecords.Any()
+                    ? BorrowRecordRepository.BorrowRecords.Max(r => r.Id) + 1 : 1,
                 BookId = book.Id,
                 BookTitle = book.Title,
                 BorrowerName = viewModel.BorrowerName,
                 BorrowerPhone = viewModel.BorrowerPhone,
                 BorrowedDate = DateTime.Now
             };
-
-            // Add the new borrow record to the repository and update the book's borrowed copies count
+            // Add the new record to the repository and update the book's borrowed copies count
             BorrowRecordRepository.BorrowRecords.Add(newRecord);
             book.BorrowedCopies++;
 
             TempData["SuccessMessage"] = $"'{book.Title}' başarıyla ödünç verildi!";
             return RedirectToAction("List");
         }
-
         // Display the list of borrow records
         public IActionResult List()
         {
